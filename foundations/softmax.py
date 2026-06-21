@@ -21,8 +21,13 @@ class Solution:
         # 2. Runtime efficient
         
         # Sum over the last dimensional axis and keep the structural shape the same
-        # 
-        
-        shifted = z - np.max(z)
-        exps = np.exp(shifted)
-        return np.round(exps / np.sum(exps), 4)
+        z_maxsubstract = z - np.max(z, axis=-1, keepdims=True)
+        exp_z = np.exp(z_maxsubstract)
+        softmax = exp_z / np.sum(exp_z, axis=-1, keepdims=True)
+
+        return np.round(softmax, 4)
+
+        # Method 3: NeetCode solution (330 ms)
+        # shifted = z - np.max(z)
+        # exps = np.exp(shifted)
+        # return np.round(exps / np.sum(exps), 4)
