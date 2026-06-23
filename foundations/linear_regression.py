@@ -12,10 +12,11 @@ class Solution:
         # Compute mean squared error between predictions and ground truth
         # Round to 5 decimal places
         
-        
-        MSE = np.sum(((model_prediction - ground_truth) ** 2), axis =0) / ground_truth.shape[0] # calculate the squared errors
+        MSE = np.mean(((model_prediction - ground_truth) ** 2)) # If we provide axis=0 to np.mean,
+        # the output will be an array of size (1,) and we would need to index the element to extract the float.
+        #MSE = np.sum(((model_prediction - ground_truth) ** 2), axis =0) / ground_truth.shape[0] # calculate the squared errors
 
         # now, add up the errors and calculate the mean
 
 
-        return np.round(MSE[0], 5)
+        return np.round(float(MSE), 5)
