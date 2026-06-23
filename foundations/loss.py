@@ -10,9 +10,12 @@ class Solution:
         # y_pred: predicted probabilities
         # Hint: add a small epsilon (1e-7) to y_pred to avoid log(0)
         # return round(your_answer, 4)
-        n = y_true.shape
-        assert n == y_pred.shape
-        y_pred += 1e-7
+        assert y_true.shape == y_pred.shape
+        
+        # Clip y_pred to prevent log(0) without permanently mutating the input
+        # clipping prevents values from dropping below 1e-15 or above (1 - 1e-15)
+        eps = 1e-7
+        y_pred = np.clip(y_pred, eps, 1.0 - eps)
         loss_per_sample = -(y_true * np.log(y_pred) + (1-y_true) * np.log(1-y_pred))
 
         return round(float(np.mean(loss_per_sample)),4)
@@ -24,9 +27,10 @@ class Solution:
         # Hint: add a small epsilon (1e-7) to y_pred to avoid log(0)
         # return round(your_answer, 4)
         
-        n = y_true.shape
-        assert n == y_pred.shape
-        y_pred += 1e-7
+        assert y_true.shape == y_pred.shape
+        
+        eps = 1e-7
+        y_pred = np.clip(y_pred, eps, 1.0 - eps)
 
         loss_per_sample = -np.sum(y_true * np.log(y_pred), axis=-1)
         
