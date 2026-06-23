@@ -19,4 +19,4 @@ class Solution:
         # now, add up the errors and calculate the mean
 
 
-        return np.round(float(MSE[0]), 5)
+        return np.round((MSE[0]), 5)
